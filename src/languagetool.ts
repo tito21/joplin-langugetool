@@ -1,7 +1,6 @@
 
-export async function get_suggestions(text:string, lang = "auto") {
+export async function get_suggestions(text:string, lang = "auto", url="https://languagetool.org/api/v2/check") {
 
-    let url = "https://languagetool.org/api/v2/check";
     let data_obj = {
         "text": text,
         "language": lang,
