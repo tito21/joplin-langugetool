@@ -30,11 +30,6 @@ joplin.plugins.register({
                 args: [mistakes]
             });
 
-            // joplin.commands.execute('editor.execCommand', {
-            //     name: 'showSuggestion', // CodeMirror and TinyMCE
-            //     args: [['value', 'value2']]
-            // });
-
         }
 
         // This event will be triggered when the user selects a different note
@@ -106,15 +101,12 @@ joplin.plugins.register({
                     }
                     console.log(current_line);
                     let mistake = newBody.slice(error.offset, error.offset + error.length);
-                    // newBody = newBody.slice(0, error.offset)
-                    //     + newBody.slice(error.offset, error.offset + error.length).replace(mistake, `**${mistake}**`)
-                    //     + newBody.slice(error.offset + error.length)
+
                     const type = error.type.typeName === "UnknownWord" ? 'mistake' : 'suggestion';
                     mistakes.push({
                         word: mistake, offset: error.offset - len_lines[current_line - 1], length: error.length, line: current_line, type: type, suggestions: error.replacements
                     });
-                    // console.log(error);
-                    // console.log(mistake);
+
                 }
                 // console.log(newBody);
                 console.log("returning mistakes");

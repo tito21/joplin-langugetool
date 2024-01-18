@@ -1,5 +1,5 @@
 {
     "extraScripts": [
-        "highlightErrors.ts", "showSuggestion.ts"
+        "highlightErrors.ts"
     ]
 }
