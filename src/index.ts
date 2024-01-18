@@ -60,6 +60,7 @@ joplin.plugins.register({
             if (mistake.length) {
                 const items = []
                 items.push({ type: 'separator' });
+                items.push({ label: mistake[0].message });
 
                 for (let s of mistake[0].suggestions) {
                     items.push({
@@ -104,7 +105,13 @@ joplin.plugins.register({
 
                     const type = error.type.typeName === "UnknownWord" ? 'mistake' : 'suggestion';
                     mistakes.push({
-                        word: mistake, offset: error.offset - len_lines[current_line - 1], length: error.length, line: current_line, type: type, suggestions: error.replacements
+                        word: mistake,
+                        offset: error.offset - len_lines[current_line - 1],
+                        length: error.length,
+                        line: current_line,
+                        type: type,
+                        suggestions: error.replacements,
+                        message: error.message
                     });
 
                 }
