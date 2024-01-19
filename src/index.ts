@@ -9,6 +9,7 @@ joplin.plugins.register({
     onStart: async function () {
 
         console.log("Starting");
+        let mistakes;
 
         async function updateErrors() {
             // eslint-disable-next-line no-console
@@ -22,7 +23,7 @@ joplin.plugins.register({
             } else {
                 console.info('No note is selected');
             }
-            const mistakes = await joplin.commands.execute('getMistakes', note);
+            mistakes = await joplin.commands.execute('getMistakes', note);
             console.log("The mistakes");
             console.log(mistakes);
             joplin.commands.execute('editor.execCommand', {
@@ -52,8 +53,6 @@ joplin.plugins.register({
                 name: 'getItemsUnderCursor',
             });
             console.log("getItems", line, ch);
-            const note = await joplin.workspace.selectedNote();
-            const mistakes = await joplin.commands.execute('getMistakes', note);
             const mistake = mistakes.filter((el) => el['line'] == line && (ch > el['offset'] && ch < el['offset'] + el['length']));
             console.log("mistake", mistake);
 
