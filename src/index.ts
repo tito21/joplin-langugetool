@@ -148,7 +148,7 @@ joplin.plugins.register({
 
         await joplin.settings.registerSection('settings.languagetool', {
             label: 'LanguageTool',
-            iconName: 'fas fa-rocket'
+            iconName: "fas fa-language"
         });
 
         await joplin.settings.registerSettings({
