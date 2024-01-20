@@ -61,12 +61,17 @@ joplin.plugins.register({
                 items.push({ type: 'separator' });
                 items.push({ label: mistake[0].message });
 
-                for (let s of mistake[0].suggestions) {
-                    items.push({
-                        label: s.value,
-                        commandName: 'replaceError',
-                        commandArgs: [s.value, { line, ch: mistake[0].offset }, mistake[0].word.length, mistake[0].word]
-                    });
+                if (mistake[0].suggestions) {
+                    for (let s of mistake[0].suggestions) {
+                        items.push({
+                            label: s.value,
+                            commandName: 'replaceError',
+                            commandArgs: [s.value, { line, ch: mistake[0].offset }, mistake[0].word.length, mistake[0].word]
+                        });
+                    }
+                }
+                else {
+                    items.push({ label: "No suggestions" });
                 }
                 console.log(items);
                 object.items = object.items.concat(items);
