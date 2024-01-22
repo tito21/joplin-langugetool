@@ -53,7 +53,7 @@ joplin.plugins.register({
                 name: 'getItemsUnderCursor',
             });
             console.log("getItems", line, ch);
-            const mistake = mistakes.filter((el) => el['line'] == line && (ch > el['offset'] && ch < el['offset'] + el['length']));
+            const mistake = mistakes.filter((el) => el['line'] == line && (ch >= el['offset'] && ch <= el['offset'] + el['length']));
             console.log("mistake", mistake);
 
             if (mistake.length) {
@@ -61,7 +61,7 @@ joplin.plugins.register({
                 items.push({ type: 'separator' });
                 items.push({ label: mistake[0].message });
 
-                if (mistake[0].suggestions) {
+                if (mistake[0].suggestions.length) {
                     for (let s of mistake[0].suggestions.slice(0, 5)) {
                         items.push({
                             label: s.value,
