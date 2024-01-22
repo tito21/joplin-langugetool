@@ -62,7 +62,7 @@ joplin.plugins.register({
                 items.push({ label: mistake[0].message });
 
                 if (mistake[0].suggestions) {
-                    for (let s of mistake[0].suggestions) {
+                    for (let s of mistake[0].suggestions.slice(0, 5)) {
                         items.push({
                             label: s.value,
                             commandName: 'replaceError',
