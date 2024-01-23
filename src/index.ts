@@ -2,8 +2,8 @@
 import joplin from 'api';
 import { ContentScriptType, SettingItemType } from 'api/types';
 
-
 import { get_suggestions } from './languagetool';
+import { get_settings, register_settings } from './settings';
 
 joplin.plugins.register({
     onStart: async function () {
@@ -83,7 +83,9 @@ joplin.plugins.register({
             name: 'getMistakes',
             label: 'get mistakes',
             execute: async (note) => {
-                const data = await get_suggestions(note.body, await joplin.settings.value('languagetoolLanguage'), await joplin.settings.value('languagetoolUrl'));
+                const settings = await get_settings();
+                console.log(settings);
+                const data = await get_suggestions(note.body, settings);
                 // console.log(data);
                 let newBody = note.body;
                 const lines = newBody.split('\n');
@@ -150,27 +152,7 @@ joplin.plugins.register({
             './highlightErrors.js'
         );
 
-        await joplin.settings.registerSection('settings.languagetool', {
-            label: 'LanguageTool',
-            iconName: "fas fa-language"
-        });
-
-        await joplin.settings.registerSettings({
-            'languagetoolUrl': {
-                value: "https://languagetool.org/api/v2/check",
-                type: SettingItemType.String,
-                section: 'settings.languagetool',
-                public: true,
-                label: 'URL for the LanguageTool instance (default for the public API)'
-            },
-            'languagetoolLanguage': {
-                value: "auto",
-                type: SettingItemType.String,
-                section: 'settings.languagetool',
-                public: true,
-                label: 'Default language to correct (use auto to automatically select the language). You can add regional variants'
-            }
-        });
+        await register_settings();
 
         updateErrors();
     }

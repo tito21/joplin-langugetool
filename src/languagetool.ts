@@ -1,9 +1,10 @@
 
-export async function get_suggestions(text:string, lang = "auto", url="https://languagetool.org/api/v2/check") {
+export async function get_suggestions(text: string, LTOptions: any) {
 
+    console.log(LTOptions);
     let data_obj = {
         "text": text,
-        "language": lang,
+        "language": LTOptions.language,
     }
 
     let options = {
@@ -12,7 +13,7 @@ export async function get_suggestions(text:string, lang = "auto", url="https://l
     }
 
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(LTOptions.url, options);
         return await response.json();
     } catch (error) {
         return console.log(error);
