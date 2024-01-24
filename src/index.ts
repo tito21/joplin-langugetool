@@ -145,6 +145,16 @@ joplin.plugins.register({
             }
         });
 
+        // await joplin.commands.register({
+        //     name: 'addToDict',
+        //     label: 'Add word to personal dictionary',
+        //     execute: (word) => {
+
+        //         return
+        //     }
+        // });
+
+
         console.log("register script")
         await joplin.contentScripts.register(
             ContentScriptType.CodeMirrorPlugin,
