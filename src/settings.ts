@@ -26,7 +26,8 @@ export async function register_settings() {
             type: SettingItemType.String,
             section: 'settings.languagetool',
             public: true,
-            label: 'URL for the LanguageTool instance (default for the public API). For Premium use https://api.languagetoolplus.com/v2/check'
+            label: 'URL for the LanguageTool instance',
+            description: 'Use default for the public API. For Premium use https://api.languagetoolplus.com/v2/check'
         },
 
         'languagetoolLanguage': {
@@ -34,7 +35,8 @@ export async function register_settings() {
             type: SettingItemType.String,
             section: 'settings.languagetool',
             public: true,
-            label: 'Default language to correct (use auto to automatically select the language). You can add regional variants'
+            label: 'Default language',
+            description: 'Use auto to automatically select the language. You can add regional variants such as en-GB or de-DE.'
         },
 
         'languagetoolAPIKey' : {
@@ -58,7 +60,8 @@ export async function register_settings() {
             type: SettingItemType.String,
             section: 'settings.languagetool',
             public: true,
-            label: 'Personal dictionary, words should be comma separated (Not used by the moment)'
+            label: 'Dictionary',
+            description: 'Not used. You can manage your dictionary on https://languagetool.org/editor/settings/dictionary'
         }
     });
 }

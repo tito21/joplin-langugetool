@@ -2,7 +2,7 @@
 import joplin from 'api';
 import { ContentScriptType, SettingItemType } from 'api/types';
 
-import { get_suggestions } from './languagetool';
+import { get_suggestions, add_to_dictionary } from './languagetool';
 import { get_settings, register_settings } from './settings';
 
 joplin.plugins.register({
@@ -69,6 +69,11 @@ joplin.plugins.register({
                             commandArgs: [s.value, { line, ch: mistake[0].offset }, mistake[0].word.length, mistake[0].word]
                         });
                     }
+                    items.push({
+                        label: "Add to personal dictionary",
+                        commandName: "addToDict",
+                        commandArgs: [mistake[0].word]
+                    });
                 }
                 else {
                     items.push({ label: "No suggestions" });
@@ -145,15 +150,16 @@ joplin.plugins.register({
             }
         });
 
-        // await joplin.commands.register({
-        //     name: 'addToDict',
-        //     label: 'Add word to personal dictionary',
-        //     execute: (word) => {
-
-        //         return
-        //     }
-        // });
-
+        await joplin.commands.register({
+            name: 'addToDict',
+            label: 'Add word to personal dictionary',
+            execute: async (word) => {
+                const settings = await get_settings();
+                const result = await add_to_dictionary(word, settings);
+                updateErrors();
+                return result['added'];
+            }
+        });
 
         console.log("register script")
         await joplin.contentScripts.register(
